@@ -6,8 +6,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class TestController {
-    @GetMapping("/testController")
+    @GetMapping("/TestController")
     public @ResponseBody String test(){
         return "test success";
+
     }
 }
