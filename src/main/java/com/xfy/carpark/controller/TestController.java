@@ -9,6 +9,5 @@ public class TestController {
     @GetMapping("/TestController")
     public @ResponseBody String test(){
         return "test success";
-
     }
 }
