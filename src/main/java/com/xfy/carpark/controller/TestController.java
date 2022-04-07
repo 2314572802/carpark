@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class TestController {
     @GetMapping("/TestController")
     public @ResponseBody String test(){
-
         return "test success";
     }
 }
