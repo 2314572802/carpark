@@ -17,4 +17,13 @@ public class IndexServiceImpl implements IndexService {
     public List<AdminDO> queryAdmin() {
         return indexAdminMapper.queryAdmin();
     }
+
+    public List<AdminDO> queryAdminByName(String admName) {
+        return indexAdminMapper.queryAdminByName(admName);
+    }
+
+    public AdminDO insertAdmin(AdminDO adminDO) {
+        indexAdminMapper.insertAdmin(adminDO);
+        return adminDO;
+    }
 }

@@ -19,4 +19,17 @@
     <select id="queryAdmin" resultMap="BaseResultMap">
         select * from admin
     </select>
+
+    <select id="queryAdminByName" resultMap="BaseResultMap">
+        select * from admin
+        where adm_name = #{admName,jdbcType=VARCHAR}
+    </select>
+
+    <insert id="insertAdmin" parameterType="com.xfy.carpark.DO.AdminDO"
+            keyProperty="admId" useGeneratedKeys="true">
+        insert into admin(adm_id, adm_name, adm_pwd)
+        values (#{admId,jdbcType=INTEGER},
+                #{admName,jdbcType=VARCHAR},
+                #{admPwd,jdbcType=VARCHAR})
+    </insert>
 </mapper>

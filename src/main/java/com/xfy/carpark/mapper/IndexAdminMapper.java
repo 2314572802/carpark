@@ -9,4 +9,8 @@ import java.util.List;
 public interface IndexAdminMapper {
 
     List<AdminDO> queryAdmin();
+
+    List<AdminDO> queryAdminByName(String admName);
+
+    int insertAdmin(AdminDO adminDO);
 }
