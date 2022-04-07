@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xfy.carpark.mapper.IndexAdminMapper">
+    <resultMap id="BaseResultMap" type="com.xfy.carpark.DO.AdminDO">
+        <!--@mbg.generated-->
+        <!--@Table `admin`-->
+        <id column="adm_id" jdbcType="INTEGER" property="admId" />
+        <result column="adm_name" jdbcType="VARCHAR" property="admName" />
+        <result column="adm_phone" jdbcType="VARCHAR" property="admPhone" />
+        <result column="adm_pwd" jdbcType="VARCHAR" property="admPwd" />
+        <result column="adm_pic" jdbcType="VARCHAR" property="admPic" />
+        <result column="adm_delete_mark" jdbcType="CHAR" property="admDMark" />
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--@mbg.generated-->
+        adm_id, adm_name, adm_phone, adm_pwd, adm_pic, adm_delete_mark
+    </sql>
+
+    <select id="queryAdmin" resultMap="BaseResultMap">
+        select * from admin
+    </select>
+</mapper>

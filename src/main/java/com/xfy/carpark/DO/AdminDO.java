@@ -11,7 +11,7 @@ public class AdminDO {
     /**
      * id
      */
-    private int admId;
+    private Integer admId;
 
     /**
      * 管理员用户名
