@@ -32,4 +32,9 @@
                 #{admName,jdbcType=VARCHAR},
                 #{admPwd,jdbcType=VARCHAR})
     </insert>
+
+    <select id="queryAdminByPassword" resultMap="BaseResultMap">
+        select * from admin
+        where adm_name = #{admName,jdbcType=VARCHAR} and adm_pwd = #{admPwd,jdbcType=VARCHAR}
+    </select>
 </mapper>

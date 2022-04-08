@@ -4,8 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-@Getter
 @Setter
+@Getter
 @ToString
 public class AdminDO {
     /**
@@ -37,4 +37,5 @@ public class AdminDO {
      * 删除标记
      */
     private String admDMark;
+
 }

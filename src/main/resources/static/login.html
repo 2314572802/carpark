@@ -18,6 +18,11 @@
             left: 645px;
             top: 158px;
         }
+        .cc{
+            position: absolute;
+            left: 730px;
+            top: 158px;
+        }
     </style>
     <script>
         function myFunction(){
@@ -44,19 +49,23 @@
     </script>
 </head>
 <body>
+<a class="cc" href="/index.html"><button>返回登录页面</button></a>
+<div class="center">
 <header class="bar-nav">
     <h1 class="title">注册账号</h1>
 </header>
 <div class="zc">
-    <form action="/CRUD/insert" method="post" onsubmit="return myFunction()" name="name-password">
+    <form action="/insertAdmin" method="post" onsubmit="return myFunction()" name="name-password">
         <b>创建账号</b>：<input type="text" name="username" placeholder="请输入账号 "><br/>
         <b>创建密码</b>：<input type="test" name="password1" placeholder="请输入密码"><br/>
         <b>确定密码</b>：<input type="test" name="password2" placeholder="请再次输入密码"><br/>
-        <input class="login" type="submit" value="创建" />
+        <input class="login" type="submit" value="创建">
     </form>
+
     <form action="login.html">
         <input class="cz" type="submit" value="重置">
     </form>
+</div>
 </div>
 </body>
 </html>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xfy.carpark.mapper.IndexParkInfoMapper">
+    <resultMap id="BaseResultMap" type="com.xfy.carpark.DO.ParkInformationDO">
+        <!--@mbg.generated-->
+        <!--@Table `park_information`-->
+        <id column="park_id" jdbcType="INTEGER" property="parkId" />
+        <result column="park_type" jdbcType="VARCHAR" property="parkType" />
+        <result column="park_status" jdbcType="CHAR" property="parkStatus" />
+        <result column="park_delete_mark" jdbcType="CHAR" property="parkDMark" />
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--@mbg.generated-->
+        park_id, park_type, park_status, park_delete_mark
+    </sql>
+
+    <select id="parkInfoList" resultMap="BaseResultMap">
+        select * from park_information
+    </select>
+</mapper>
