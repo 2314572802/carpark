@@ -37,4 +37,10 @@
         select * from admin
         where adm_name = #{admName,jdbcType=VARCHAR} and adm_pwd = #{admPwd,jdbcType=VARCHAR}
     </select>
+
+    <update id="updateAdmPwd" parameterType="com.xfy.carpark.DO.AdminDO">
+        update admin
+        set admin.adm_pwd = #{password1,jdbcType=VARCHAR}
+        where adm_name = #{admName,jdbcType=VARCHAR}
+    </update>
 </mapper>

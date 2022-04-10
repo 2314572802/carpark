@@ -40,6 +40,11 @@ public class IndexServiceImpl implements IndexService {
     }
 
     @Override
+    public List<AdminDO> updateAdmPwd(String password1, String admName) {
+        return indexAdminMapper.updateAdmPwd(password1, admName);
+    }
+
+    @Override
     public AdminDO insertAdmin(AdminDO adminDO) {
         indexAdminMapper.insertAdmin(adminDO);
         return adminDO;

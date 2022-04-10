@@ -37,4 +37,9 @@ public interface IndexService {
      * 查询所有车位信息
      */
     List<ParkInformationDO> queryParkInfo();
+
+    /**
+     * 修改密码
+     */
+    List<AdminDO> updateAdmPwd(String password1, String admName);
 }

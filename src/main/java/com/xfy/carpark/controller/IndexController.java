@@ -7,10 +7,7 @@ import com.xfy.carpark.service.IndexService;
 import com.xfy.carpark.util.CodeUtil;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -22,6 +19,11 @@ public class IndexController {
 
     @Resource
     private IndexService indexService;
+
+    @Resource
+    private IndexAdminMapper indexAdminMapper;
+
+
 
     @GetMapping("/queryAdmin")
     public List<AdminDO> queryParkInfo() {
@@ -50,16 +52,28 @@ public class IndexController {
         }
     }
 
-    @RequestMapping(value = "/insertAdmin")
+    @PostMapping("/insertAdmin")
     @Transactional(rollbackFor = Exception.class)
-    public String insertAdmin(AdminDO adminDO, HttpServletRequest request) {
+    public AdminDO insertAdmin(AdminDO adminDO, HttpServletRequest request) {
         if (queryAdminByName(request.getParameter("username")).size() == 0) {
             adminDO.setAdmName(request.getParameter("username"));
             adminDO.setAdmPwd(request.getParameter("password2"));
-            indexService.insertAdmin(adminDO);
-            return "success";
+            return indexService.insertAdmin(adminDO);
         } else {
-            return "AdminNameIsExists";
+            return null;
+        }
+    }
+
+    @PutMapping("/updateAdmPwd")
+    public boolean updateAdmPwd(HttpServletRequest request) {
+        String admName = request.getParameter("username");
+        String admPwd = request.getParameter("password");
+        if (indexAdminMapper.queryAdminByPassword(admName, admPwd).size() != 0) {
+            String password1 = request.getParameter("password2");
+            indexService.updateAdmPwd(password1, admName);
+            return true;
+        } else {
+            return false;
         }
     }
 }
