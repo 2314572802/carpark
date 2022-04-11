@@ -1,18 +1,14 @@
 package com.xfy.carpark.controller;
 
 import com.xfy.carpark.DO.AdminDO;
-import com.xfy.carpark.DO.ParkInformationDO;
 import com.xfy.carpark.mapper.IndexAdminMapper;
 import com.xfy.carpark.service.IndexService;
-import com.xfy.carpark.util.CodeUtil;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
-
 
 @RestController
 public class IndexController {
@@ -25,42 +21,42 @@ public class IndexController {
 
 
 
-    @GetMapping("/queryAdmin")
+    @GetMapping("/carpark/queryAdmin")
     public List<AdminDO> queryParkInfo() {
         return indexService.queryAdmin();
     }
 
-    @GetMapping("/queryAdminByName")
+    @GetMapping("/carpark/queryAdminByName")
     public List<AdminDO> queryAdminByName(String admName) {
         return indexService.queryAdminByName(admName);
     }
 
-    @GetMapping("/queryParkInfo")
-    public String ListParkInfo(Model model, HttpServletRequest request) {
-        String admName = request.getParameter("username");
-        String admPwd = request.getParameter("password");
+    @PostMapping("/carpark/queryParkInfo")
+    public String ListParkInfo(AdminDO adminDO) {
+        String admName = adminDO.getAdmName();
+        String admPwd = adminDO.getAdmPwd();
         if (indexService.queryAdminByPassword(admName, admPwd).size() != 0) {
-            if (!CodeUtil.checkVerifyCode(request)) {
+            /*if (!CodeUtil.checkVerifyCode(request)) {
                 return "errorCode";
             } else {
                 List<ParkInformationDO> parkInformationDOList = indexService.queryParkInfo();
                 model.addAttribute("parkInformationDOList", parkInformationDOList);
                 return "listParkInfo";
-            }
+            }*/
+            return "successs1";
         } else {
-            return "success";
+            return "false2";
         }
     }
 
-    @PostMapping("/insertAdmin")
+    @PostMapping("/carpark/insertAdmin")
     @Transactional(rollbackFor = Exception.class)
-    public AdminDO insertAdmin(AdminDO adminDO, HttpServletRequest request) {
-        if (queryAdminByName(request.getParameter("username")).size() == 0) {
-            adminDO.setAdmName(request.getParameter("username"));
-            adminDO.setAdmPwd(request.getParameter("password2"));
-            return indexService.insertAdmin(adminDO);
+    public String insertAdmin(AdminDO adminDO) {
+        if (queryAdminByName(adminDO.getAdmName()).size() == 0) {
+            indexService.insertAdmin(adminDO);
+            return "success";
         } else {
-            return null;
+            return "false";
         }
     }
 
