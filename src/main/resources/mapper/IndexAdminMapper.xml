@@ -25,11 +25,9 @@
         where adm_name = #{admName,jdbcType=VARCHAR}
     </select>
 
-    <insert id="insertAdmin" parameterType="com.xfy.carpark.DO.AdminDO"
-            keyProperty="admId" useGeneratedKeys="true">
-        insert into admin(adm_id, adm_name, adm_pwd)
-        values (#{admId,jdbcType=INTEGER},
-                #{admName,jdbcType=VARCHAR},
+    <insert id="insertAdmin" parameterType="com.xfy.carpark.DO.AdminDO">
+        insert into admin(adm_name, adm_pwd)
+        values (#{admName,jdbcType=VARCHAR},
                 #{admPwd,jdbcType=VARCHAR})
     </insert>
 

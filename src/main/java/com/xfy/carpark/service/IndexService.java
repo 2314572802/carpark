@@ -1,9 +1,7 @@
 package com.xfy.carpark.service;
 
 import com.xfy.carpark.DO.AdminDO;
-import com.xfy.carpark.DO.ParkInformationDO;
 
-import java.util.Collection;
 import java.util.List;
 
 
@@ -24,7 +22,7 @@ public interface IndexService {
      * 添加管理员
      * @param adminDO
      */
-    AdminDO insertAdmin(AdminDO adminDO);
+    boolean insertAdmin(AdminDO adminDO);
 
     /**
      * 根据账号密码判断是否存在
@@ -32,11 +30,6 @@ public interface IndexService {
      * @param admPwd 密码
      */
     List<AdminDO> queryAdminByPassword(String admName, String admPwd);
-
-    /**
-     * 查询所有车位信息
-     */
-    List<ParkInformationDO> queryParkInfo();
 
     /**
      * 修改密码

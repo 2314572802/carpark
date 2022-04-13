@@ -1,9 +1,7 @@
 package com.xfy.carpark.serviceImpl;
 
 import com.xfy.carpark.DO.AdminDO;
-import com.xfy.carpark.DO.ParkInformationDO;
 import com.xfy.carpark.mapper.IndexAdminMapper;
-import com.xfy.carpark.mapper.IndexParkInfoMapper;
 import com.xfy.carpark.service.IndexService;
 import org.springframework.stereotype.Service;
 
@@ -15,9 +13,6 @@ public class IndexServiceImpl implements IndexService {
 
     @Resource
     private IndexAdminMapper indexAdminMapper;
-
-    @Resource
-    private IndexParkInfoMapper indexParkInfoMapper;
 
     @Override
     public List<AdminDO> queryAdmin() {
@@ -35,18 +30,12 @@ public class IndexServiceImpl implements IndexService {
     }
 
     @Override
-    public List<ParkInformationDO> queryParkInfo() {
-        return indexParkInfoMapper.parkInfoList();
-    }
-
-    @Override
     public List<AdminDO> updateAdmPwd(String password1, String admName) {
         return indexAdminMapper.updateAdmPwd(password1, admName);
     }
 
     @Override
-    public AdminDO insertAdmin(AdminDO adminDO) {
-        indexAdminMapper.insertAdmin(adminDO);
-        return adminDO;
+    public boolean insertAdmin(AdminDO adminDO) {
+        return indexAdminMapper.insertAdmin(adminDO);
     }
 }

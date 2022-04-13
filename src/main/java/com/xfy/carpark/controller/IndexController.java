@@ -19,8 +19,6 @@ public class IndexController {
     @Resource
     private IndexAdminMapper indexAdminMapper;
 
-
-
     @GetMapping("/carpark/queryAdmin")
     public List<AdminDO> queryParkInfo() {
         return indexService.queryAdmin();
@@ -32,35 +30,28 @@ public class IndexController {
     }
 
     @PostMapping("/carpark/queryParkInfo")
-    public String ListParkInfo(AdminDO adminDO) {
+    public boolean ListParkInfo(@RequestBody  AdminDO adminDO) {
         String admName = adminDO.getAdmName();
         String admPwd = adminDO.getAdmPwd();
         if (indexService.queryAdminByPassword(admName, admPwd).size() != 0) {
-            /*if (!CodeUtil.checkVerifyCode(request)) {
-                return "errorCode";
-            } else {
-                List<ParkInformationDO> parkInformationDOList = indexService.queryParkInfo();
-                model.addAttribute("parkInformationDOList", parkInformationDOList);
-                return "listParkInfo";
-            }*/
-            return "successs1";
+            return true;
         } else {
-            return "false2";
+            return false;
         }
     }
 
     @PostMapping("/carpark/insertAdmin")
     @Transactional(rollbackFor = Exception.class)
-    public String insertAdmin(AdminDO adminDO) {
+    public boolean insertAdmin(@RequestBody AdminDO adminDO) {
         if (queryAdminByName(adminDO.getAdmName()).size() == 0) {
             indexService.insertAdmin(adminDO);
-            return "success";
+            return true;
         } else {
-            return "false";
+            return false;
         }
     }
 
-    @PutMapping("/updateAdmPwd")
+    @PutMapping("/carpark/updateAdmPwd")
     public boolean updateAdmPwd(HttpServletRequest request) {
         String admName = request.getParameter("username");
         String admPwd = request.getParameter("password");

@@ -22,7 +22,7 @@ public interface IndexAdminMapper {
     /**
      * 创建管理员
      */
-    List<AdminDO> insertAdmin(AdminDO adminDO);
+    boolean insertAdmin(AdminDO adminDO);
 
     /**
      * 根据账号和密码查询是否存在
@@ -33,8 +33,4 @@ public interface IndexAdminMapper {
      * 修改密码
      */
     List<AdminDO> updateAdmPwd(@Param("password1") String password1, @Param("admName") String admName);
-
-    /**
-     * 查询所有车位信息
-    List<ParkInformationDO> parkInfoList();*/
 }
