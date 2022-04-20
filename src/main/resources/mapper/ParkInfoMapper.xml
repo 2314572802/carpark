@@ -17,4 +17,14 @@
     <select id="queryPark" resultMap="BaseResultMap">
         select * from park_information
     </select>
+
+    <select id="queryParkByType" resultMap="BaseResultMap">
+        select * from park_information
+        where park_type = #{parkType,jdbcType=VARCHAR}
+    </select>
+
+    <insert id="insertParkInfo" parameterType="com.xfy.carpark.DO.ParkInformationDO">
+        insert into park_information
+
+    </insert>
 </mapper>

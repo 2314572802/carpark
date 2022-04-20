@@ -25,7 +25,7 @@ public class IndexController {
     }
 
     @GetMapping("/carpark/queryAdminByName")
-    public List<AdminDO> queryAdminByName(String admName) {
+    public List<AdminDO> queryAdminByName(String admName)  {
         return indexService.queryAdminByName(admName);
     }
 

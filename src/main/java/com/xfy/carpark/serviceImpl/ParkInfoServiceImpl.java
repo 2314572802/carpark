@@ -18,4 +18,14 @@ public class ParkInfoServiceImpl implements ParkInfoService {
     public List<ParkInformationDO> queryPark() {
         return parkInfoMapper.queryPark();
     }
+
+    @Override
+    public List<ParkInformationDO> queryParkByType(String parkType) {
+        return parkInfoMapper.queryParkByType(parkType);
+    }
+
+    @Override
+    public boolean insertParkInfo(ParkInformationDO parkInformationDO) {
+        return parkInfoMapper.insertParkInfo(parkInformationDO);
+    }
 }
