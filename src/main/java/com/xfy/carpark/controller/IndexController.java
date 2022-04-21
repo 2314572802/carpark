@@ -7,17 +7,15 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
 public class IndexController {
 
-    @Resource
-    private IndexService indexService;
+    public static String userName = null;
 
     @Resource
-    private IndexAdminMapper indexAdminMapper;
+    private IndexService indexService;
 
     @GetMapping("/carpark/queryAdmin")
     public List<AdminDO> queryParkInfo() {
@@ -29,12 +27,20 @@ public class IndexController {
         return indexService.queryAdminByName(admName);
     }
 
+    @GetMapping("/carpark/queryAdminByName4Info")
+    public AdminDO queryAdminByName4Info()  {
+        return indexService.queryAdminByName4Info(userName);
+    }
+
     @PostMapping("/carpark/queryParkInfo")
     public boolean ListParkInfo(@RequestBody  AdminDO adminDO) {
+        userName = adminDO.getAdmName();
         String admName = adminDO.getAdmName();
         String admPwd = adminDO.getAdmPwd();
         if (indexService.queryAdminByPassword(admName, admPwd).size() != 0) {
+            System.out.println(userName);
             return true;
+
         } else {
             return false;
         }
@@ -51,13 +57,22 @@ public class IndexController {
         }
     }
 
+    @PutMapping("/carpark/updateAdmInfo")
+    @Transactional(rollbackFor = Exception.class)
+    public boolean updateAdmInfo(AdminDO adminDO) {
+        if (adminDO.getAdmName().length() != 0) {
+            indexService.updateAdmInfo(adminDO);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     @PutMapping("/carpark/updateAdmPwd")
-    public boolean updateAdmPwd(HttpServletRequest request) {
-        String admName = request.getParameter("username");
-        String admPwd = request.getParameter("password");
-        if (indexAdminMapper.queryAdminByPassword(admName, admPwd).size() != 0) {
-            String password1 = request.getParameter("password2");
-            indexService.updateAdmPwd(password1, admName);
+    @Transactional(rollbackFor = Exception.class)
+    public boolean updateAdmPwd(AdminDO adminDO) {
+        if (adminDO.getAdmName().length() != 0) {
+            indexService.updateAdmPwd(adminDO);
             return true;
         } else {
             return false;

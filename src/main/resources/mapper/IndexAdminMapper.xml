@@ -6,9 +6,11 @@
         <!--@Table `admin`-->
         <id column="adm_id" jdbcType="INTEGER" property="admId" />
         <result column="adm_name" jdbcType="VARCHAR" property="admName" />
-        <result column="adm_phone" jdbcType="VARCHAR" property="admPhone" />
         <result column="adm_pwd" jdbcType="VARCHAR" property="admPwd" />
-        <result column="adm_pic" jdbcType="VARCHAR" property="admPic" />
+        <result column="adm_phone" jdbcType="VARCHAR" property="admPhone" />
+        <result column="adm_email" jdbcType="VARCHAR" property="admEmail" />
+        <result column="adm_gender" jdbcType="INTEGER" property="admGender" />
+        <result column="adm_age" jdbcType="INTEGER" property="admAge" />
         <result column="adm_delete_mark" jdbcType="CHAR" property="admDMark" />
     </resultMap>
     <sql id="Base_Column_List">
@@ -36,9 +38,25 @@
         where adm_name = #{admName,jdbcType=VARCHAR} and adm_pwd = #{admPwd,jdbcType=VARCHAR}
     </select>
 
-    <update id="updateAdmPwd" parameterType="com.xfy.carpark.DO.AdminDO">
+
+
+    <select id="queryAdminByName4Info" resultMap="BaseResultMap">
+        select * from admin
+        where adm_name = #{admName,jdbcType=VARCHAR}
+    </select>
+
+    <update id="updateAdmInfo" parameterType="com.xfy.carpark.DO.AdminDO">
         update admin
-        set admin.adm_pwd = #{password1,jdbcType=VARCHAR}
+        set adm_phone = #{admPhone,jdbcType=VARCHAR},
+        adm_email = #{admEmail,jdbcType=VARCHAR},
+        adm_gender = #{admGender,jdbcType=INTEGER},
+        adm_age = #{admAge,jdbcType=INTEGER}
+        where adm_name = #{admName,jdbcType=VARCHAR}
+    </update>
+
+    <update id="updateAdmPwd">
+        update admin
+        set adm_pwd = #{admPwd,jdbcType=VARCHAR}
         where adm_name = #{admName,jdbcType=VARCHAR}
     </update>
 </mapper>

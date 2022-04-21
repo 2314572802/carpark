@@ -28,4 +28,14 @@ public class ParkInfoServiceImpl implements ParkInfoService {
     public boolean insertParkInfo(ParkInformationDO parkInformationDO) {
         return parkInfoMapper.insertParkInfo(parkInformationDO);
     }
+
+    @Override
+    public boolean updateParkInfo(ParkInformationDO parkInformationDO) {
+        return parkInfoMapper.updateParkInfo(parkInformationDO);
+    }
+
+    @Override
+    public boolean deleteParkInfo(ParkInformationDO parkInformationDO) {
+        return parkInfoMapper.deleteParkInfo(parkInformationDO);
+    }
 }

@@ -30,8 +30,18 @@ public class IndexServiceImpl implements IndexService {
     }
 
     @Override
-    public List<AdminDO> updateAdmPwd(String password1, String admName) {
-        return indexAdminMapper.updateAdmPwd(password1, admName);
+    public boolean updateAdmInfo(AdminDO adminDO) {
+        return indexAdminMapper.updateAdmInfo(adminDO);
+    }
+
+    @Override
+    public AdminDO queryAdminByName4Info(String userName) {
+        return indexAdminMapper.queryAdminByName4Info(userName);
+    }
+
+    @Override
+    public boolean updateAdmPwd(AdminDO adminDO) {
+        return indexAdminMapper.updateAdmPwd(adminDO);
     }
 
     @Override

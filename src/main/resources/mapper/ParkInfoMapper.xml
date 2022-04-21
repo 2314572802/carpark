@@ -16,15 +16,38 @@
 
     <select id="queryPark" resultMap="BaseResultMap">
         select * from park_information
+        where park_delete_mark = '0'
+        order by park_id
     </select>
 
-    <select id="queryParkByType" resultMap="BaseResultMap">
+    <select id="queryParkByType" parameterType="string" resultMap="BaseResultMap">
         select * from park_information
         where park_type = #{parkType,jdbcType=VARCHAR}
+        and park_delete_mark = '0'
+        order by park_id
     </select>
 
     <insert id="insertParkInfo" parameterType="com.xfy.carpark.DO.ParkInformationDO">
-        insert into park_information
-
+        insert into park_information(park_type)
+        values (#{parkType,jdbcType=VARCHAR})
     </insert>
+
+<!--    <select id="queryParkById" resultMap="BaseResultMap">-->
+<!--        select * from park_information-->
+<!--        where park_id = #{parkId,jdbcType=INTEGER}-->
+<!--        and park_delete_mark = '0'-->
+<!--    </select>-->
+
+    <update id="updateParkInfo" parameterType="com.xfy.carpark.DO.ParkInformationDO">
+        update park_information
+        set park_type = #{parkType,jdbcType=VARCHAR},
+            park_status = #{parkStatus,jdbcType=VARCHAR}
+        where park_id = #{parkId,jdbcType=INTEGER}
+    </update>
+
+    <delete id="deleteParkInfo" parameterType="com.xfy.carpark.DO.ParkInformationDO">
+        update park_information
+        set park_delete_mark = '1'
+        where park_id = #{parkId,jdbcType=INTEGER}
+    </delete>
 </mapper>

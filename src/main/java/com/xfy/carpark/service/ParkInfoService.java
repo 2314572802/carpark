@@ -20,4 +20,19 @@ public interface ParkInfoService {
      * 新建车位信息
      */
     boolean insertParkInfo(ParkInformationDO parkInformationDO);
+
+    /**
+     * 根据id查询车位信息
+     */
+//    List<ParkInformationDO> queryParkById(Integer parkId);
+
+    /**
+     * 修改查询出来的信息
+     */
+    boolean updateParkInfo(ParkInformationDO parkInformationDO);
+
+    /**
+     * 删除标记
+     */
+    boolean deleteParkInfo(ParkInformationDO parkInformationDO);
 }

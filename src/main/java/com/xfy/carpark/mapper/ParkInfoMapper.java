@@ -2,6 +2,7 @@ package com.xfy.carpark.mapper;
 
 import com.xfy.carpark.DO.ParkInformationDO;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -22,4 +23,19 @@ public interface ParkInfoMapper {
      * 新建车位信息
      */
     boolean insertParkInfo(ParkInformationDO parkInformationDO);
+
+    /**
+     * 根据id查询车位信息
+     */
+//    List<ParkInformationDO> queryParkById(Integer parkId);
+
+    /**
+     * 修改查询出的信息
+     */
+    boolean updateParkInfo(ParkInformationDO parkInformationDO);
+
+    /**
+     * 删除标记
+     */
+    boolean deleteParkInfo(ParkInformationDO parkInformationDO);
 }
