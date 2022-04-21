@@ -15,7 +15,7 @@
     </resultMap>
     <sql id="Base_Column_List">
         <!--@mbg.generated-->
-        adm_id, adm_name, adm_phone, adm_pwd, adm_pic, adm_delete_mark
+        adm_id, adm_name, adm_pwd, adm_phone, adm_email,adm_gender, adm_age, adm_delete_mark
     </sql>
 
     <select id="queryAdmin" resultMap="BaseResultMap">

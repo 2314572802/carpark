@@ -2,7 +2,6 @@ package com.xfy.carpark.mapper;
 
 import com.xfy.carpark.DO.ParkInformationDO;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
