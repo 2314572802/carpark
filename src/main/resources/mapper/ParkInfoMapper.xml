@@ -50,4 +50,17 @@
         set park_delete_mark = '1'
         where park_id = #{parkId,jdbcType=INTEGER}
     </delete>
+
+    <select id="queryFixParkById" resultType="java.lang.String">
+        select park_status from park_information
+        where park_id = #{parkId,jdbcType=INTEGER}
+        and park_type = 'fix'
+        and park_delete_mark = '0'
+    </select>
+
+    <select id="queryParkTypeById" resultType="java.lang.String">
+        select park_type from park_information
+        where park_id = #{parkId,jdbcType=INTEGER}
+        and park_delete_mark = '0'
+    </select>
 </mapper>

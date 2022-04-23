@@ -38,4 +38,14 @@ public class ParkInfoServiceImpl implements ParkInfoService {
     public boolean deleteParkInfo(ParkInformationDO parkInformationDO) {
         return parkInfoMapper.deleteParkInfo(parkInformationDO);
     }
+
+    @Override
+    public String queryFixParkById(Integer parkId) {
+        return parkInfoMapper.queryFixParkById(parkId);
+    }
+
+    @Override
+    public String queryParkTypeById(Integer parkId) {
+        return parkInfoMapper.queryParkTypeById(parkId);
+    }
 }

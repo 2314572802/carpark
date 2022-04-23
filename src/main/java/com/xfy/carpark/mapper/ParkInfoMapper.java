@@ -37,4 +37,14 @@ public interface ParkInfoMapper {
      * 删除标记
      */
     boolean deleteParkInfo(ParkInformationDO parkInformationDO);
+
+    /**
+     * 根据车位id查询是否为固定车位
+     */
+    String queryFixParkById(Integer parkId);
+
+    /**
+     * 根据车位id查询车位类型
+     */
+    String queryParkTypeById(Integer parkId);
 }

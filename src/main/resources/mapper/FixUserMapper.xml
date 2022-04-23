@@ -22,4 +22,42 @@
         where user_delete_mark = '0'
         order by user_id
     </select>
+
+    <select id="queryUserInfoByCarNum" resultMap="BaseResultMap">
+        select * from fix_user
+        where user_car_num = #{userCarNum,jdbcType=VARCHAR}
+        and user_delete_mark = '0'
+        order by user_id
+    </select>
+
+    <insert id="insertUserInfo" parameterType="com.xfy.carpark.DO.FixUserDO">
+        insert into fix_user(user_name, user_phone, user_age, user_gender, user_car_num)
+        values (#{userName,jdbcType=VARCHAR},
+                #{userPhone,jdbcType=VARCHAR},
+                #{userAge,jdbcType=INTEGER},
+                #{userGender,jdbcType=INTEGER},
+                #{userCarNum,jdbcType=VARCHAR})
+    </insert>
+
+    <update id="updateUserInfo" parameterType="com.xfy.carpark.DO.FixUserDO">
+        update fix_user
+        set user_name = #{userName,jdbcType=VARCHAR},
+            user_phone = #{userPhone,jdbcType=VARCHAR},
+            user_age = #{userAge,jdbcType=INTEGER},
+            user_gender = #{userGender,jdbcType=INTEGER},
+            user_car_num = #{userCarNum,jdbcType=VARCHAR}
+        where user_id = #{userId,jdbcType=INTEGER}
+    </update>
+
+    <delete id="deleteUserInfo" parameterType="com.xfy.carpark.DO.FixUserDO">
+        update fix_user
+        set user_delete_mark = '1'
+        where user_id = #{userId,jdbcType=INTEGER}
+    </delete>
+
+    <select id="queryUserNameById" resultType="java.lang.String">
+        select user_name from fix_user
+        where user_delete_mark = '0'
+        and user_id = #{userId,jdbcType=INTEGER}
+    </select>
 </mapper>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xfy.carpark.mapper.CarMsgMapper">
+    <resultMap id="BaseResultMap" type="com.xfy.carpark.DO.CarMsgDO">
+        <!--@mbg.generated-->
+        <!--@Table `car_msg`-->
+        <id column="car_id" jdbcType="INTEGER" property="carId" />
+        <result column="park_id" jdbcType="VARCHAR" property="parkId" />
+        <result column="park_type" jdbcType="VARCHAR" property="parkType" />
+        <result column="user_id" jdbcType="VARCHAR" property="userId" />
+        <result column="user_name" jdbcType="VARCHAR" property="userName" />
+        <result column="gmt_start" jdbcType="TIMESTAMP" property="gmtStart" />
+        <result column="gmt_end" jdbcType="TIMESTAMP" property="gmtEnd" />
+        <result column="car_delete_mark" jdbcType="INTEGER" property="carDMark" />
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--@mbg.generated-->
+        car_id, park_id, park_type, user_id, user_name,  gmt_start, gmt_end, car_delete_mark
+    </sql>
+
+    <select id="queryFixCarInfo" resultMap="BaseResultMap">
+        select * from car_msg carMsg
+	    left join park_information parkInfo on carMsg.park_id = parkInfo.park_id
+	    left join fix_user fixUser on carMsg.user_id = fixUser.user_id
+	    where carMsg.car_delete_mark = '0'
+	    and parkInfo.park_delete_mark = '0'
+	    and fixUser.user_delete_mark = '0'
+	    and parkInfo.park_type = 'fix'
+	    and parkInfo.park_status = '1'
+    </select>
+
+    <select id="queryCarMsgByUserName" resultMap="BaseResultMap">
+        select * from car_msg carMsg
+        right join (select * from fix_user
+        where user_name = #{userName,jdbcType=VARCHAR}
+        and user_delete_mark = '0')fixUser on carMsg.user_id = fixUser.user_id
+        left join park_information parkInfo on carMsg.park_id = parkInfo.park_id
+        where carMsg.car_delete_mark = '0'
+        and parkInfo.park_delete_mark = '0'
+    </select>
+</mapper>
