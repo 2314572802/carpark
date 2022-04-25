@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xfy.carpark.mapper.PayMsgMapper">
+    <resultMap id="BaseResultMap" type="com.xfy.carpark.DO.PayMsgDO">
+        <!--@mbg.generated-->
+        <!--@Table `pay_msg`-->
+        <id column="pm_id" jdbcType="INTEGER" property="pmId" />
+        <result column="pm_type" jdbcType="VARCHAR" property="pmType" />
+        <result column="car_msg_id" jdbcType="INTEGER" property="carMsgId" />
+        <result column="pm_rate" jdbcType="INTEGER" property="pmRate" />
+        <result column="pay_money" jdbcType="INTEGER" property="payMoney" />
+        <result column="pay_method" jdbcType="VARCHAR" property="payMethod" />
+        <result column="pm_delete_mark" jdbcType="CHAR" property="pmDMark" />
+        <result column="user_car_num" jdbcType="VARCHAR" property="userCarNum" />
+        <result column="gmt_time" jdbcType="INTEGER" property="gmtTime" />
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--@mbg.generated-->
+        pm_id, pm_type, car_msg_id, pm_rate, pay_money, pay_method, pm_delete_mark, user_car_num, gmt_time
+    </sql>
+
+    <select id="queryFixPayMsg" resultMap="BaseResultMap">
+        select * from pay_msg pm
+        left join car_msg carMsg on carMsg.car_id = pm.car_msg_id
+        left join fix_user fixUser on fixUser.user_id = carMsg.user_id
+        where fixUser.user_delete_mark = '0'
+        and carMsg.car_delete_mark = '0'
+        and pm.pm_delete_mark = '0'
+        and pm.pm_type = 'fix'
+        order by pm.pm_id
+    </select>
+
+    <select id="queryFixPayMsgByUserCarNum" resultMap="BaseResultMap">
+        select * from pay_msg pm
+        right join (select car_id, fixUser.user_car_num from car_msg carMsg
+        right join (select user_id, user_car_num from fix_user
+        where user_car_num = #{userCarNum,jdbcType=VARCHAR}
+        and user_delete_mark = '0')fixUser on fixUser.user_id = carMsg.user_id
+        where carMsg.car_delete_mark = '0')carMessage on pm.car_msg_id = carMessage.car_id
+        where pm.pm_delete_mark = '0'
+    </select>
+
+    <insert id="insertFixPayMsg" parameterType="com.xfy.carpark.DO.PayMsgDO">
+        insert into pay_msg(pm_type, car_msg_id)
+        values (#{pmType,jdbcType=VARCHAR},
+                #{carMsgId,jdbcType=INTEGER})
+    </insert>
+
+    <update id="insertPayMsgYear" parameterType="com.xfy.carpark.DO.PayMsgDO">
+        update pay_msg
+        set pay_method = 'year',
+            pay_money = 560
+        where car_msg_id = #{carMsgId,jdbcType=INTEGER}
+    </update>
+
+    <update id="insertPayMsgMonth" parameterType="com.xfy.carpark.DO.PayMsgDO">
+        update pay_msg
+        set pay_method = 'month',
+        pay_money = 120
+        where car_msg_id = #{carMsgId,jdbcType=INTEGER}
+    </update>
+
+    <update id="deleteFixPayMsg" parameterType="com.xfy.carpark.DO.PayMsgDO">
+        update pay_msg
+        set pm_delete_mark = '1'
+        where pm_id = #{pmId,jdbcType=INTEGER}
+    </update>
+
+    <select id="queryFreePayMsg" resultMap="BaseResultMap">
+        select * from pay_msg pm
+        left join
+        (select car_id,
+        (UNIX_TIMESTAMP(gmt_end) - UNIX_TIMESTAMP(gmt_start)) /(3600)gmt_time
+        from car_msg
+        where car_delete_mark = '0') carMsg on carMsg.car_id = pm.car_msg_id
+        where pm.pm_type = 'free'
+        and pm.pm_delete_mark = '0'
+    </select>
+
+    <select id="queryFreePayMsgByCarMsgId" resultMap="BaseResultMap">
+        select * from pay_msg pm
+        left join
+        (select car_id,
+        (UNIX_TIMESTAMP(gmt_end) - UNIX_TIMESTAMP(gmt_start)) /(3600)gmt_time
+        from car_msg
+        where car_delete_mark = '0') carMsg on carMsg.car_id = pm.car_msg_id
+        where car_msg_id = #{carMsgId,jdbcType=INTEGER}
+        and pm.pm_type = 'free'
+        and pm.pm_delete_mark = '0'
+    </select>
+
+    <insert id="insertFreePayMsg" parameterType="com.xfy.carpark.DO.PayMsgDO">
+        insert into pay_msg(pm_type, car_msg_id, pm_rate)
+        values ('free', #{carMsgId,jdbcType=INTEGER}, #{pmRate,jdbcType=INTEGER})
+    </insert>
+
+    <update id="updatePayMoneyByCarMsgId" parameterType="com.xfy.carpark.DO.PayMsgDO">
+        update pay_msg
+        set pay_money = #{payMoney,jdbcType=INTEGER}
+        where car_msg_id = #{carMsgId,jdbcType=INTEGER}
+    </update>
+</mapper>

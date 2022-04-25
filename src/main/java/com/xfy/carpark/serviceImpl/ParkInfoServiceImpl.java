@@ -48,4 +48,19 @@ public class ParkInfoServiceImpl implements ParkInfoService {
     public String queryParkTypeById(Integer parkId) {
         return parkInfoMapper.queryParkTypeById(parkId);
     }
+
+    @Override
+    public List<ParkInformationDO> queryParkId(Integer parkId) {
+        return parkInfoMapper.queryParkId(parkId);
+    }
+
+    @Override
+    public void updateParkInfoById(Integer parkId) {
+        parkInfoMapper.updateParkInfoById(parkId);
+    }
+
+    @Override
+    public String queryFreeParkById(Integer parkId) {
+        return parkInfoMapper.queryFreeParkById(parkId);
+    }
 }

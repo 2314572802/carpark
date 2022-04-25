@@ -33,7 +33,17 @@ public interface FixUserMapper {
     boolean deleteUserInfo(Integer userId);
 
     /**
-     * 根据用户id查询用户姓名
+     * 校验输入车主姓名是否存在
      */
-    String queryUserNameById(Integer userId);
+    List<FixUserDO> queryUserNameByInputUserName(String userName);
+
+    /**
+     * 根据新增时的车主姓名查询对应车主编号
+     */
+    Integer queryUserIdByUserName(String userName);
+
+    /**
+     * 根据新增时的车辆id查询相应的车牌号
+     */
+    String queryUserCarNumByUserId(Integer carMsgId);
 }

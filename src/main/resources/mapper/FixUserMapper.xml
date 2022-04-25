@@ -55,9 +55,23 @@
         where user_id = #{userId,jdbcType=INTEGER}
     </delete>
 
-    <select id="queryUserNameById" resultType="java.lang.String">
+    <select id="queryUserNameByInputUserName" resultMap="BaseResultMap">
         select user_name from fix_user
+        where user_name = #{userName,jdbcType=VARCHAR}
+        and user_delete_mark = '0'
+    </select>
+
+    <select id="queryUserIdByUserName" resultType="java.lang.Integer">
+        select user_id from fix_user
         where user_delete_mark = '0'
-        and user_id = #{userId,jdbcType=INTEGER}
+        and user_name = #{userName,jdbcType=VARCHAR}
+    </select>
+
+    <select id="queryUserCarNumByUserId" resultType="java.lang.String">
+        select user_car_num from fix_user fixUser
+        right join (select user_id from car_msg
+        where car_id = #{carMsgId,jdbcType=INTEGER}
+        and car_delete_mark = '0')carMsg on fixUser.user_id = carMsg.user_id
+        where user_delete_mark = '0'
     </select>
 </mapper>

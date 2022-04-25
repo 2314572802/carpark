@@ -63,4 +63,23 @@
         where park_id = #{parkId,jdbcType=INTEGER}
         and park_delete_mark = '0'
     </select>
+
+    <select id="queryParkId" resultMap="BaseResultMap">
+        select park_id from park_information
+        where park_delete_mark = '0'
+        and park_id = #{parkId,jdbcType=INTEGER}
+    </select>
+
+    <update id="updateParkInfoById" parameterType="com.xfy.carpark.DO.ParkInformationDO">
+        update park_information
+        set park_status = '1'
+        where park_delete_mark = '0'
+    </update>
+
+    <select id="queryFreeParkById" resultType="java.lang.String">
+        select park_status from park_information
+        where park_id = #{parkId,jdbcType=INTEGER}
+        and park_type = 'free'
+        and park_delete_mark = '0'
+    </select>
 </mapper>

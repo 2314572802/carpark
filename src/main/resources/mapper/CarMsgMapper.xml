@@ -27,6 +27,7 @@
 	    and fixUser.user_delete_mark = '0'
 	    and parkInfo.park_type = 'fix'
 	    and parkInfo.park_status = '1'
+	    order by carMsg.car_id
     </select>
 
     <select id="queryCarMsgByUserName" resultMap="BaseResultMap">
@@ -37,5 +38,69 @@
         left join park_information parkInfo on carMsg.park_id = parkInfo.park_id
         where carMsg.car_delete_mark = '0'
         and parkInfo.park_delete_mark = '0'
+    </select>
+
+    <insert id="insertFixCarMsg" parameterType="com.xfy.carpark.DO.CarMsgDO">
+        insert into car_msg(park_id, user_id, gmt_start)
+        values (#{parkId,jdbcType=INTEGER},
+                #{userId,jdbcType=INTEGER},
+                now())
+    </insert>
+
+    <update id="updateCarMsg" parameterType="com.xfy.carpark.DO.CarMsgDO">
+        update car_msg
+        set gmt_end = now()
+        where car_id = #{carId,jdbcType=INTEGER}
+    </update>
+
+    <update id="deleteCarMsg" parameterType="com.xfy.carpark.DO.CarMsgDO">
+        update car_msg
+        set car_delete_mark = '1'
+        where car_id = #{carId,jdbcType=INTEGER}
+    </update>
+
+    <select id="queryFreeCarInfo" resultMap="BaseResultMap">
+        select * from car_msg carMsg
+	    left join park_information parkInfo on carMsg.park_id = parkInfo.park_id
+	    where carMsg.car_delete_mark = '0'
+	    and parkInfo.park_delete_mark = '0'
+	    and parkInfo.park_type = 'free'
+	    and parkInfo.park_status = '1'
+	    order by carMsg.car_id
+    </select>
+
+    <select id="queryFreeCarMsgByParkId" resultMap="BaseResultMap">
+        select * from car_msg carMsg
+        left join park_information parkInfo on carMsg.park_id = parkInfo.park_id
+        where carMsg.car_delete_mark = '0'
+        and parkInfo.park_delete_mark = '0'
+        and carMsg.park_id = #{parkId,jdbcType=INTEGER}
+    </select>
+
+    <insert id="insertFreeCarMsg" parameterType="com.xfy.carpark.DO.CarMsgDO">
+        insert into car_msg(park_id, gmt_start)
+        values (#{parkId,jdbcType=INTEGER},
+                now())
+    </insert>
+
+    <select id="queryUserIdByCarId" resultMap="BaseResultMap">
+        select user_id from car_msg
+        where car_id = #{carMsgId,jdbcType=INTEGER}
+        and car_delete_mark = '0'
+    </select>
+
+    <select id="queryFreeCarMsgByCarId" resultMap="BaseResultMap">
+        select * from car_msg
+        where car_id = #{carMsgId,jdbcType=INTEGER}
+        and user_id is null
+        and car_delete_mark = '0'
+    </select>
+
+    <select id="queryGmtTimeByCarId" resultType="java.lang.Integer">
+        select (UNIX_TIMESTAMP(gmt_end) - UNIX_TIMESTAMP(gmt_start)) /(3600)gmt_time
+        from car_msg
+        where car_id = #{carMsgId,jdbcType=INTEGER}
+        and user_id is null
+        and car_delete_mark = '0'
     </select>
 </mapper>

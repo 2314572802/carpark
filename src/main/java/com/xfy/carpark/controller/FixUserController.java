@@ -22,6 +22,16 @@ public class FixUserController {
         return fixUserService.queryUserInfo();
     }
 
+    @GetMapping("/carpark/queryUserNameByInputUserName")
+    public boolean queryUserNameByInputUserName(String userName) {
+        List<FixUserDO> fixUserDOList = fixUserService.queryUserNameByInputUserName(userName);
+        if (fixUserDOList.size() != 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     @GetMapping("/carpark/queryUserInfoByCarNum")
     public List<FixUserDO> queryUserInfoByCarNum(String userCarNum) {
         return fixUserService.queryUserInfoByCarNum(userCarNum);
