@@ -3,7 +3,6 @@ package com.xfy.carpark.controller;
 import com.xfy.carpark.DO.CarMsgDO;
 import com.xfy.carpark.DO.PayMsgDO;
 import com.xfy.carpark.service.CarMsgService;
-import com.xfy.carpark.service.FixUserService;
 import com.xfy.carpark.service.PayMsgService;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;

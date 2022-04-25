@@ -39,9 +39,4 @@ public interface FixUserService{
      * 根据新增时的车主姓名查询对应车主编号
      */
     Integer queryUserIdByUserName(String userName);
-
-    /**
-     * 根据新增时的车辆id查询相应的车牌号
-     */
-    String queryUserCarNumByUserId(Integer carMsgId);
 }

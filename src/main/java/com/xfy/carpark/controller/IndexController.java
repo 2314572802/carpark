@@ -1,7 +1,6 @@
 package com.xfy.carpark.controller;
 
 import com.xfy.carpark.DO.AdminDO;
-import com.xfy.carpark.mapper.IndexAdminMapper;
 import com.xfy.carpark.service.IndexService;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;

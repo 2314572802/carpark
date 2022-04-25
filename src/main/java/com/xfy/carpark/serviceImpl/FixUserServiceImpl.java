@@ -1,8 +1,6 @@
 package com.xfy.carpark.serviceImpl;
 
-import com.xfy.carpark.DO.CarMsgDO;
 import com.xfy.carpark.DO.FixUserDO;
-import com.xfy.carpark.mapper.CarMsgMapper;
 import com.xfy.carpark.mapper.FixUserMapper;
 import com.xfy.carpark.service.FixUserService;
 import org.springframework.stereotype.Service;
@@ -15,9 +13,6 @@ public class FixUserServiceImpl implements FixUserService {
 
     @Resource
     private FixUserMapper fixUserMapper;
-
-    @Resource
-    private CarMsgMapper carMsgMapper;
 
     @Override
     public List<FixUserDO> queryUserInfo() {
@@ -54,8 +49,4 @@ public class FixUserServiceImpl implements FixUserService {
         return fixUserMapper.queryUserIdByUserName(userName);
     }
 
-    @Override
-    public String queryUserCarNumByUserId(Integer carMsgId) {
-        return fixUserMapper.queryUserCarNumByUserId(carMsgId);
-    }
 }

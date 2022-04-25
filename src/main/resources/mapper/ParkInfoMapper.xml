@@ -32,12 +32,6 @@
         values (#{parkType,jdbcType=VARCHAR})
     </insert>
 
-<!--    <select id="queryParkById" resultMap="BaseResultMap">-->
-<!--        select * from park_information-->
-<!--        where park_id = #{parkId,jdbcType=INTEGER}-->
-<!--        and park_delete_mark = '0'-->
-<!--    </select>-->
-
     <update id="updateParkInfo" parameterType="com.xfy.carpark.DO.ParkInformationDO">
         update park_information
         set park_type = #{parkType,jdbcType=VARCHAR},

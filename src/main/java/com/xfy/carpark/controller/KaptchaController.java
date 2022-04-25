@@ -16,8 +16,6 @@ import java.awt.image.BufferedImage;
 @Controller
 public class KaptchaController {
 
-    //第二种方法
-    //@Qualifier("getDefaultKaptcha")
     @Autowired
     private Producer captchaProducer = null;
 

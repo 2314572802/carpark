@@ -22,11 +22,6 @@ public class ParkInfoController {
         return parkInfoService.queryPark();
     }
 
-//    @GetMapping("/carpark/queryParkById")
-//    public List<ParkInformationDO> queryParkById(Integer parkId) {
-//        return parkInfoService.queryParkById(parkId);
-//    }
-
     @GetMapping("/carpark/queryParkByType")
     public List<ParkInformationDO> queryParkByType(String parkType) {
         return parkInfoService.queryParkByType(parkType);
