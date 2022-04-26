@@ -8,7 +8,7 @@ public interface FixUserService{
     /**
      * 查询所有车主信息
      */
-    List<FixUserDO> queryUserInfo();
+    List<FixUserDO> queryUserInfo(Integer pageNum, Integer val);
 
     /**
      * 根据车牌号查询
@@ -39,4 +39,9 @@ public interface FixUserService{
      * 根据新增时的车主姓名查询对应车主编号
      */
     Integer queryUserIdByUserName(String userName);
+
+    /**
+     * 分页查询总条数
+     */
+    Integer queryTotal();
 }

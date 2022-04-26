@@ -15,8 +15,8 @@ public class ParkInfoServiceImpl implements ParkInfoService {
     private ParkInfoMapper parkInfoMapper;
 
     @Override
-    public List<ParkInformationDO> queryPark() {
-        return parkInfoMapper.queryPark();
+    public List<ParkInformationDO> queryPark(Integer pageNum, Integer val) {
+        return parkInfoMapper.queryPark(pageNum, val);
     }
 
     @Override
@@ -62,5 +62,10 @@ public class ParkInfoServiceImpl implements ParkInfoService {
     @Override
     public String queryFreeParkById(Integer parkId) {
         return parkInfoMapper.queryFreeParkById(parkId);
+    }
+
+    @Override
+    public Integer queryTotal() {
+        return parkInfoMapper.queryTotal();
     }
 }

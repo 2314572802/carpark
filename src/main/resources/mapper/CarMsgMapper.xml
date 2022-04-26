@@ -28,6 +28,7 @@
 	    and parkInfo.park_type = 'fix'
 	    and parkInfo.park_status = '1'
 	    order by carMsg.car_id
+	    limit #{pageNum,jdbcType=INTEGER}, #{val,jdbcType=INTEGER}
     </select>
 
     <select id="queryCarMsgByUserName" resultMap="BaseResultMap">
@@ -67,6 +68,7 @@
 	    and parkInfo.park_type = 'free'
 	    and parkInfo.park_status = '1'
 	    order by carMsg.car_id
+	    limit #{pageNum,jdbcType=INTEGER}, #{val,jdbcType=INTEGER}
     </select>
 
     <select id="queryFreeCarMsgByParkId" resultMap="BaseResultMap">
@@ -102,5 +104,25 @@
         where car_id = #{carMsgId,jdbcType=INTEGER}
         and user_id is null
         and car_delete_mark = '0'
+    </select>
+
+    <select id="queryTotal" resultType="java.lang.Integer">
+        select count(*) from car_msg carMsg
+	    left join park_information parkInfo on carMsg.park_id = parkInfo.park_id
+	    left join fix_user fixUser on carMsg.user_id = fixUser.user_id
+	    where carMsg.car_delete_mark = '0'
+	    and parkInfo.park_delete_mark = '0'
+	    and fixUser.user_delete_mark = '0'
+	    and parkInfo.park_type = #{type,jdbcType=VARCHAR}
+	    and parkInfo.park_status = '1'
+    </select>
+
+    <select id="queryFreeTotal" resultType="java.lang.Integer">
+        select count(*) from car_msg carMsg
+	    left join park_information parkInfo on carMsg.park_id = parkInfo.park_id
+	    where carMsg.car_delete_mark = '0'
+	    and parkInfo.park_delete_mark = '0'
+	    and parkInfo.park_type = #{type,jdbcType=VARCHAR}
+	    and parkInfo.park_status = '1'
     </select>
 </mapper>

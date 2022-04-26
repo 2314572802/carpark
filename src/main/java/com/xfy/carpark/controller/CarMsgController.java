@@ -1,6 +1,7 @@
 package com.xfy.carpark.controller;
 
 import com.xfy.carpark.DO.CarMsgDO;
+import com.xfy.carpark.DO.FixUserDO;
 import com.xfy.carpark.DO.ParkInformationDO;
 import com.xfy.carpark.service.CarMsgService;
 import com.xfy.carpark.service.FixUserService;
@@ -12,7 +13,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class CarMsgController {
@@ -30,14 +33,32 @@ public class CarMsgController {
     private FixUserController fixUserController;
 
     @GetMapping("/carpark/queryFixCarInfo")
-    public List<CarMsgDO> queryFixCarInfo() {
-        return carMsgService.queryFixCarInfo();
+    public Map<String, Object> queryFixCarInfo(Integer pageCode, Integer val) {
+        Map<String, Object> carMsgMap = new HashMap<>();
+        Integer pageNum = (pageCode - 1) * val;
+        List<CarMsgDO> carMsgDOList = carMsgService.queryFixCarInfo(pageNum, val);
+        carMsgMap.put("pageData", carMsgDOList);
+        Integer total = carMsgService.queryTotal("fix");//总条数
+        carMsgMap.put("total", total);
+        Integer pageTotal = total/val;//总页数
+        carMsgMap.put("pageTotal", pageTotal);
+        return carMsgMap;
     }
 
     @GetMapping("/carpark/queryFreeCarInfo")
-    public List<CarMsgDO> queryFreeCarInfo() {
-        return carMsgService.queryFreeCarInfo();
+    public Map<String, Object> queryFreeCarInfo(Integer pageCode, Integer val) {
+//        return carMsgService.queryFreeCarInfo();
+        Map<String, Object> carMsgMap = new HashMap<>();
+        Integer pageNum = (pageCode - 1) * val;
+        List<CarMsgDO> carMsgDOList = carMsgService.queryFreeCarInfo(pageNum, val);
+        carMsgMap.put("pageData", carMsgDOList);
+        Integer total = carMsgService.queryFreeTotal("free");//总条数
+        carMsgMap.put("total", total);
+        Integer pageTotal = total/val;//总页数
+        carMsgMap.put("pageTotal", pageTotal);
+        return carMsgMap;
     }
+
 
     @GetMapping("/carpark/queryCarMsgByUserName")
     public List<CarMsgDO> queryCarMsgByUserName(String userName) {

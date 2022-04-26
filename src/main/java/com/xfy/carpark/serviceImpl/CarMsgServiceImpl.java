@@ -15,8 +15,8 @@ public class CarMsgServiceImpl implements CarMsgService {
     private CarMsgMapper carMsgMapper;
 
     @Override
-    public List<CarMsgDO> queryFixCarInfo() {
-        return carMsgMapper.queryFixCarInfo();
+    public List<CarMsgDO> queryFixCarInfo(Integer pageNum, Integer val) {
+        return carMsgMapper.queryFixCarInfo(pageNum, val);
     }
 
     @Override
@@ -45,8 +45,8 @@ public class CarMsgServiceImpl implements CarMsgService {
     }
 
     @Override
-    public List<CarMsgDO> queryFreeCarInfo() {
-        return carMsgMapper.queryFreeCarInfo();
+    public List<CarMsgDO> queryFreeCarInfo(Integer pageNum, Integer val) {
+        return carMsgMapper.queryFreeCarInfo(pageNum, val);
     }
 
     @Override
@@ -67,5 +67,15 @@ public class CarMsgServiceImpl implements CarMsgService {
     @Override
     public Integer queryGmtTimeByCarId(Integer carMsgId) {
         return carMsgMapper.queryGmtTimeByCarId(carMsgId);
+    }
+
+    @Override
+    public Integer queryTotal(String type) {
+        return carMsgMapper.queryTotal(type);
+    }
+
+    @Override
+    public Integer queryFreeTotal(String type) {
+        return carMsgMapper.queryFreeTotal(type);
     }
 }

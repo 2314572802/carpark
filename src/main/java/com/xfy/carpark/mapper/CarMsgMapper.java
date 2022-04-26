@@ -2,6 +2,7 @@ package com.xfy.carpark.mapper;
 
 import com.xfy.carpark.DO.CarMsgDO;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -10,7 +11,7 @@ public interface CarMsgMapper {
     /**
      * 查询所有固定车辆
      */
-    List<CarMsgDO> queryFixCarInfo();
+    List<CarMsgDO> queryFixCarInfo(@Param("pageNum") Integer pageNum, @Param("val") Integer val);
 
     /**
      * 根据车主姓名查询固定固定车辆信息
@@ -35,7 +36,7 @@ public interface CarMsgMapper {
     /**
      * 查询所有自由车辆信息
      */
-    List<CarMsgDO> queryFreeCarInfo();
+    List<CarMsgDO> queryFreeCarInfo(@Param("pageNum") Integer pageNum, @Param("val") Integer val);
 
     /**
      * 根据车位编号查询自由车辆信息
@@ -61,4 +62,14 @@ public interface CarMsgMapper {
      * 根据自由车辆id查询停车时长
      */
     Integer queryGmtTimeByCarId(Integer carMsgId);
+
+    /**
+     * 分页查询总固定条数
+     */
+    Integer queryTotal(String type);
+
+    /**
+     * 分页查询总自由条数
+     */
+    Integer queryFreeTotal(String type);
 }

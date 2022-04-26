@@ -28,6 +28,7 @@
         and pm.pm_delete_mark = '0'
         and pm.pm_type = 'fix'
         order by pm.pm_id
+        limit #{pageNum,jdbcType=INTEGER}, #{val,jdbcType=INTEGER}
     </select>
 
     <select id="queryFixPayMsgByUserCarNum" resultMap="BaseResultMap">
@@ -75,6 +76,7 @@
         where car_delete_mark = '0') carMsg on carMsg.car_id = pm.car_msg_id
         where pm.pm_type = 'free'
         and pm.pm_delete_mark = '0'
+        limit #{pageNum,jdbcType=INTEGER}, #{val,jdbcType=INTEGER}
     </select>
 
     <select id="queryFreePayMsgByCarMsgId" resultMap="BaseResultMap">
@@ -99,4 +101,25 @@
         set pay_money = #{payMoney,jdbcType=INTEGER}
         where car_msg_id = #{carMsgId,jdbcType=INTEGER}
     </update>
+
+    <select id="queryTotal" resultType="java.lang.Integer">
+        select count(*) from pay_msg pm
+        left join car_msg carMsg on carMsg.car_id = pm.car_msg_id
+        left join fix_user fixUser on fixUser.user_id = carMsg.user_id
+        where fixUser.user_delete_mark = '0'
+        and carMsg.car_delete_mark = '0'
+        and pm.pm_delete_mark = '0'
+        and pm.pm_type = 'fix'
+    </select>
+
+    <select id="queryFreeTotal" resultType="java.lang.Integer">
+        select count(*) from pay_msg pm
+        left join
+        (select car_id,
+        (UNIX_TIMESTAMP(gmt_end) - UNIX_TIMESTAMP(gmt_start)) /(3600)gmt_time
+        from car_msg
+        where car_delete_mark = '0') carMsg on carMsg.car_id = pm.car_msg_id
+        where pm.pm_type = 'free'
+        and pm.pm_delete_mark = '0'
+    </select>
 </mapper>

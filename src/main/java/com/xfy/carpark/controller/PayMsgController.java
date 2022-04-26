@@ -1,6 +1,7 @@
 package com.xfy.carpark.controller;
 
 import com.xfy.carpark.DO.CarMsgDO;
+import com.xfy.carpark.DO.FixUserDO;
 import com.xfy.carpark.DO.PayMsgDO;
 import com.xfy.carpark.service.CarMsgService;
 import com.xfy.carpark.service.PayMsgService;
@@ -11,7 +12,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class PayMsgController {
@@ -23,8 +26,16 @@ public class PayMsgController {
     private CarMsgService carMsgService;
 
     @GetMapping("/carpark/queryFixPayMsg")
-    public List<PayMsgDO> queryFixPayMsg() {
-        return payMsgService.queryFixPayMsg();
+    public Map<String, Object> queryFixPayMsg(Integer pageCode, Integer val) {
+        Map<String, Object> fixPayMsgMap = new HashMap<>();
+        Integer pageNum = (pageCode - 1) * val;
+        List<PayMsgDO> payMsgDOList = payMsgService.queryFixPayMsg(pageNum, val);
+        fixPayMsgMap.put("pageData", payMsgDOList);
+        Integer total = payMsgService.queryTotal();//总条数
+        fixPayMsgMap.put("total", total);
+        Integer pageTotal = total/val;//总页数
+        fixPayMsgMap.put("pageTotal", pageTotal);
+        return fixPayMsgMap;
     }
 
     @GetMapping("/carpark/queryFixPayMsgByUserCarNum")
@@ -85,8 +96,16 @@ public class PayMsgController {
     }
 
     @GetMapping("/carpark/queryFreePayMsg")
-    public List<PayMsgDO> queryFreePayMsg() {
-        return payMsgService.queryFreePayMsg();
+    public Map<String, Object> queryFreePayMsg(Integer pageCode, Integer val) {
+            Map<String, Object> freePayMsgMap = new HashMap<>();
+            Integer pageNum = (pageCode - 1) * val;
+            List<PayMsgDO> payMsgDOList = payMsgService.queryFreePayMsg(pageNum, val);
+            freePayMsgMap.put("pageData", payMsgDOList);
+            Integer total = payMsgService.queryFreeTotal();//总条数
+            freePayMsgMap.put("total", total);
+            Integer pageTotal = total/val;//总页数
+            freePayMsgMap.put("pageTotal", pageTotal);
+            return freePayMsgMap;
     }
 
     @GetMapping("/carpark/queryFreePayMsgByCarMsgId")

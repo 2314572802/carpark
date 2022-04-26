@@ -2,6 +2,7 @@ package com.xfy.carpark.mapper;
 
 import com.xfy.carpark.DO.ParkInformationDO;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -11,7 +12,7 @@ public interface ParkInfoMapper {
     /**
      * 查询所有车位信息
      */
-    List<ParkInformationDO> queryPark();
+    List<ParkInformationDO> queryPark(@Param("pageNum") Integer pageNum, @Param("val") Integer val);
 
     /**
      * 根据车位类型查询相关信息
@@ -57,4 +58,9 @@ public interface ParkInfoMapper {
      * 根据车位id查询自由车位类型
      */
     String queryFreeParkById(Integer parkId);
+
+    /**
+     * 分页查询总条数
+     */
+    Integer queryTotal();
 }

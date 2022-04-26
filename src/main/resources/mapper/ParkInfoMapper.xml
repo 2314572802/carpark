@@ -18,6 +18,7 @@
         select * from park_information
         where park_delete_mark = '0'
         order by park_id
+        limit #{pageNum,jdbcType=INTEGER}, #{val,jdbcType=INTEGER}
     </select>
 
     <select id="queryParkByType" parameterType="string" resultMap="BaseResultMap">
@@ -75,5 +76,10 @@
         where park_id = #{parkId,jdbcType=INTEGER}
         and park_type = 'free'
         and park_delete_mark = '0'
+    </select>
+
+    <select id="queryTotal" resultType="java.lang.Integer">
+        select count(*) from park_information
+        where park_delete_mark = '0'
     </select>
 </mapper>

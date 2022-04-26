@@ -15,8 +15,8 @@ public class FixUserServiceImpl implements FixUserService {
     private FixUserMapper fixUserMapper;
 
     @Override
-    public List<FixUserDO> queryUserInfo() {
-        return fixUserMapper.queryUserInfo();
+    public List<FixUserDO> queryUserInfo(Integer pageNum, Integer val) {
+        return fixUserMapper.queryUserInfo(pageNum, val);
     }
 
     @Override
@@ -47,6 +47,11 @@ public class FixUserServiceImpl implements FixUserService {
     @Override
     public Integer queryUserIdByUserName(String userName) {
         return fixUserMapper.queryUserIdByUserName(userName);
+    }
+
+    @Override
+    public Integer queryTotal() {
+        return fixUserMapper.queryTotal();
     }
 
 }

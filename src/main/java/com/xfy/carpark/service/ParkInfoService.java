@@ -9,7 +9,7 @@ public interface ParkInfoService {
     /**
      * 查出所有车位信息
      */
-    List<ParkInformationDO> queryPark();
+    List<ParkInformationDO> queryPark(Integer pageNum, Integer val);
 
     /**
      * 根据车位类型查询相关信息
@@ -55,4 +55,9 @@ public interface ParkInfoService {
      * 根据车位编号查询自由车位类型
      */
     String queryFreeParkById(Integer parkId);
+
+    /**
+     * 分页查询总条数
+     */
+    Integer queryTotal();
 }

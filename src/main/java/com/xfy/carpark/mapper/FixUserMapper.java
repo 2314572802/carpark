@@ -2,6 +2,7 @@ package com.xfy.carpark.mapper;
 
 import com.xfy.carpark.DO.FixUserDO;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -10,7 +11,7 @@ public interface FixUserMapper {
     /**
      * 查询所有车主信息
      */
-    List<FixUserDO> queryUserInfo();
+    List<FixUserDO> queryUserInfo(@Param("pageNum") Integer pageNum, @Param("val") Integer val);
 
     /**
      * 根据车牌号查询
@@ -46,4 +47,9 @@ public interface FixUserMapper {
      * 根据新增时的车辆id查询相应的车牌号
      */
     String queryUserCarNumByUserId(Integer carMsgId);
+
+    /**
+     * 分页查询总条数
+     */
+    Integer queryTotal();
 }

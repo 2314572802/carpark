@@ -16,8 +16,8 @@ public class PayMsgServiceImpl implements PayMsgService {
     private PayMsgMapper payMsgMapper;
 
     @Override
-    public List<PayMsgDO> queryFixPayMsg() {
-        return payMsgMapper.queryFixPayMsg();
+    public List<PayMsgDO> queryFixPayMsg(Integer pageNum, Integer val) {
+        return payMsgMapper.queryFixPayMsg(pageNum, val);
     }
 
     @Override
@@ -46,8 +46,8 @@ public class PayMsgServiceImpl implements PayMsgService {
     }
 
     @Override
-    public List<PayMsgDO> queryFreePayMsg() {
-        return payMsgMapper.queryFreePayMsg();
+    public List<PayMsgDO> queryFreePayMsg(Integer pageNum, Integer val) {
+        return payMsgMapper.queryFreePayMsg(pageNum, val);
     }
 
     @Override
@@ -63,5 +63,15 @@ public class PayMsgServiceImpl implements PayMsgService {
     @Override
     public boolean updatePayMoneyByCarMsgId(Integer payMoney, Integer carMsgId) {
         return payMsgMapper.updatePayMoneyByCarMsgId(payMoney, carMsgId);
+    }
+
+    @Override
+    public Integer queryTotal() {
+        return payMsgMapper.queryTotal();
+    }
+
+    @Override
+    public Integer queryFreeTotal() {
+        return payMsgMapper.queryFreeTotal();
     }
 }

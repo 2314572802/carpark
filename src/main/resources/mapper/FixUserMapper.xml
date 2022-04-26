@@ -21,6 +21,12 @@
         select * from fix_user
         where user_delete_mark = '0'
         order by user_id
+        limit #{pageNum,jdbcType=INTEGER}, #{val,jdbcType=INTEGER}
+    </select>
+
+    <select id="queryTotal" resultType="java.lang.Integer">
+        select count(*) from fix_user
+        where user_delete_mark = '0'
     </select>
 
     <select id="queryUserInfoByCarNum" resultMap="BaseResultMap">

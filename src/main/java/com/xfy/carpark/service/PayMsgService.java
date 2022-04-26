@@ -9,7 +9,7 @@ public interface PayMsgService {
     /**
      * 查询所有固定车辆的收费信息
      */
-    List<PayMsgDO> queryFixPayMsg();
+    List<PayMsgDO> queryFixPayMsg(Integer pageNum, Integer val);
 
     /**
      * 根据车牌号查询固定车辆的收费信息
@@ -39,7 +39,7 @@ public interface PayMsgService {
     /**
      * 查询所有自由车辆的收费信息
      */
-    List<PayMsgDO> queryFreePayMsg();
+    List<PayMsgDO> queryFreePayMsg(Integer pageNum, Integer val);
 
     /**
      * 根据车辆id查询对应的自由车辆收费信息
@@ -55,4 +55,15 @@ public interface PayMsgService {
      * 新增自由车辆收费金额
      */
     boolean updatePayMoneyByCarMsgId(Integer payMoney, Integer carMsgId);
+
+    /**
+     * 分页查询固定总条数
+     * @return
+     */
+    Integer queryTotal();
+
+    /**
+     * 分页查询自由总条数
+     */
+    Integer queryFreeTotal();
 }
