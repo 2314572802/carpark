@@ -2,6 +2,7 @@ package com.xfy.carpark.controller;
 
 import com.xfy.carpark.DO.AdminDO;
 import com.xfy.carpark.service.IndexService;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,6 +28,7 @@ public class IndexController {
     }
 
     @GetMapping("/carpark/queryAdminByName4Info")
+    @Cacheable(key = "'admName'", value = "queryAdm")
     public AdminDO queryAdminByName4Info()  {
         return indexService.queryAdminByName4Info(userName);
     }
